@@ -1,6 +1,7 @@
 #include <iostream>
 
-template <class type> class Stack {
+template <class type> 
+class Stack {
 
 private:
 	Stack* head;
