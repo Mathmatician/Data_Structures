@@ -1,6 +1,6 @@
 #include <iostream>
 
-template <class type> 
+template <class type>
 class Stack {
 
 private:
@@ -9,6 +9,7 @@ private:
 	Stack* end;
 
 	type* content; // The actual content of the element
+	int length; // number of elements in the stack
 
 public:
 	Stack();
@@ -17,6 +18,7 @@ public:
 	void Pop(); // Pops element from top of the stack
 	void Traverse(); // Lists all elements in the stack
 	type& getElementAt(int); // Returns element at index
+	int getLength(); // Returns the number of elements in the stack
 };
 
 
@@ -35,6 +37,7 @@ Stack<type>::Stack()
 	next = nullptr;
 	end = nullptr;
 	content = nullptr;
+	length = 0;
 }
 
 
@@ -43,9 +46,9 @@ Stack<type>::Stack()
 
 
 
-/*-----------------------------------------------------------------
-| Receives an lvalue parameter and calls the Push_Helper function |
------------------------------------------------------------------*/
+/*-----------------------------------------------------------------------
+| Receives an lvalue parameter and adds element to the top of the stack |
+-----------------------------------------------------------------------*/
 template <class type>
 void Stack<type>::Push(type& s)
 {
@@ -62,13 +65,15 @@ void Stack<type>::Push(type& s)
 		head->next = temp;
 		head->content = &s;
 	}
+
+	length++;
 }
 
 
 
-/*-----------------------------------------------------------------
-| Receives an rvalue parameter and calls the Push_Helper function |
------------------------------------------------------------------*/
+/*-----------------------------------------------------------------------
+| Receives an rvalue parameter and adds element to the top of the stack |
+-----------------------------------------------------------------------*/
 template <class type>
 void Stack<type>::Push(type&& s)
 {
@@ -87,6 +92,8 @@ void Stack<type>::Push(type&& s)
 		head->content = new type;
 		*head->content = s;
 	}
+
+	length++;
 }
 
 
@@ -106,10 +113,11 @@ void Stack<type>::Pop()
 		Stack* temp = head;
 		head = head->next;
 		delete temp;
+		length--;
 	}
 	else
 	{
-		std::cout << "There is nothing to pop" << std::endl;
+		std::cout << "There stack is already empty" << std::endl;
 	}
 }
 
@@ -119,9 +127,9 @@ void Stack<type>::Pop()
 
 
 
-/*------------------------------------------------------------------------
-| Lists all elements in starting from the top of the stack to the bottom |
-------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------------
+| Lists all elements in the stack starting from the top and going to the bottom |
+-------------------------------------------------------------------------------*/
 
 /*--- IMPORTANT ---*/
 //
@@ -140,7 +148,7 @@ void Stack<type>::Traverse()
 			std::cout << *temp->content << std::endl;
 			temp = temp->next;
 		}
-		std::cout << *end->content << std::endl;
+		std::cout << *temp->content << std::endl;
 	}
 	else
 	{
@@ -160,25 +168,25 @@ void Stack<type>::Traverse()
 template <class type>
 type& Stack<type>::getElementAt(int n)
 {
-	try {
-		if (head != nullptr)
-		{
-			Stack* temp = head;
-			for (int i = 0; i < n; i++)
-			{
-				temp = temp->next;
-			}
-			return *temp->content;
-		}
-		else
-		{
-			std::string s = "The stack is empty";
-			throw s;
-		}
-	}
-	catch (std::string s)
+	Stack* temp = head;
+	for (int i = 0; i < n; i++)
 	{
-		std::cout << s << std::endl;
+		temp = temp->next;
 	}
-	
+	return *temp->content;
+}
+
+
+
+
+
+
+
+/*---------------------------------------------
+| Returns the number of elements in the stack |
+---------------------------------------------*/
+template <class type>
+int Stack<type>::getLength()
+{
+	return length;
 }
