@@ -1,3 +1,11 @@
+// Author: Jerome Richards
+// Queue
+
+/*---------------------------------------------------------------
+| The class is a replication of the queue class in C++ and is a |
+| demonstration of employing my logic to recreate it.           |
+---------------------------------------------------------------*/
+
 #include <iostream>
 
 template <class type>
