@@ -1,3 +1,11 @@
+// Author: Jerome Richards
+// Stack
+
+/*---------------------------------------------------------------
+| The class is a replication of the Stack class in C++ and is a |
+| demonstration of employing my logic to recreate it.           |
+---------------------------------------------------------------*/
+
 #include <iostream>
 
 template <class type>
