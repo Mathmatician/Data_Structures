@@ -1,10 +1,15 @@
-#include <iostream>
-#include <cstdlib>
+// Author: Jerome Richards
+// Binary Tree
+//
 
 /*-------------------------------------------------------------
 | The class is a replication of the map class in C++ and is a |
 | demonstration of employing my logic to recreate it.         |
 -------------------------------------------------------------*/
+
+#include <iostream>
+#include <cstdlib>
+
 template <class type, typename key_type>
 class BinaryTree {
 private:
