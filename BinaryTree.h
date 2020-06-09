@@ -1,6 +1,5 @@
 // Author: Jerome Richards
 // Binary Tree
-//
 
 /*-------------------------------------------------------------
 | The class is a replication of the map class in C++ and is a |
