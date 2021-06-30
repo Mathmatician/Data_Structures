@@ -349,6 +349,9 @@ void BinaryTree<type, key_type>::BalanceTree(BinaryTree& b)
 	}
 	else if (balNum < -1) // The left side is larger
 	{
+		while (start->parent->parent != node)
+			start = start->parent;
+
 		BinaryTree* tempNodes[3];
 		tempNodes[0] = start;
 		tempNodes[1] = start->parent;
@@ -366,6 +369,18 @@ void BinaryTree<type, key_type>::BalanceTree(BinaryTree& b)
 					tempNodes[j] = tmp;
 				}
 			}
+		}
+
+		BinaryTree* extraNode = nullptr;
+		if (tempNodes[1]->left != tempNodes[0] && tempNodes[1]->left != tempNodes[2] && tempNodes[1]->left != nullptr)
+		{
+			extraNode = tempNodes[1]->left;
+			tempNodes[1]->left = nullptr;
+		}
+		else if (tempNodes[1]->right != tempNodes[0] && tempNodes[1]->right != tempNodes[2] && tempNodes[1]->left != nullptr)
+		{
+			extraNode = tempNodes[1]->right;
+			tempNodes[1]->right = nullptr;
 		}
 
 		if (node->left->right == tempNodes[0] || node->left->right == tempNodes[1] || node->left->right == tempNodes[2])
@@ -403,12 +418,18 @@ void BinaryTree<type, key_type>::BalanceTree(BinaryTree& b)
 		{
 			Rearrange(*tempNodes[0], *tempNodes[1]);
 			Rearrange(*tempNodes[2], *tempNodes[1]);
+
+			if (extraNode)
+				Rearrange(*extraNode, *tempNodes[1]);
 		}
 		else
 		{
 			Rearrange(*tempNodes[1], *node);
 			Rearrange(*tempNodes[0], *node);
 			Rearrange(*tempNodes[2], *node);
+
+			if (extraNode)
+				Rearrange(*extraNode, *node);
 		}
 	}
 }
